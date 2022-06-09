@@ -13,7 +13,7 @@
             </ul>
             <% } %>
 </div>
-<form method="post" action="/contact" novalidate>
+<form method="post" action="/contact?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for="message">Message</label>
@@ -32,6 +32,10 @@
                 <%= errors.email.msg %>
             </div>
         <% } %>
+    </div>
+    <div class="form-field">
+        <label for="photo">Photo</label>
+        <input class="input" id="photo" name="photo" type="file" />
     </div>
     <div class="form-actions">
         <button class="btn" type="submit">Send</button>
