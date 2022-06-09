@@ -7,12 +7,14 @@ const session = require('express-session');
 const flash = require('express-flash');
 
 const routes = require('./routes');
+const helmet = require('helmet');
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 const middlewares = [
+  helmet(),
   layout(),
   express.static(path.join(__dirname, 'public')),
   bodyParser.urlencoded({ extended: true }),

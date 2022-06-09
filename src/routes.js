@@ -1,17 +1,19 @@
 const express = require('express');
 const { check, validationResult, matchedData } = require('express-validator');
 const email = require('./email');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
 const router = express.Router();
-
 router.get('/', (req, res) => {
   res.render('index');
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', csrfProtection, (req, res) => {
   res.render('contact', {
     data: {},
-    errors: {}
+    errors: {},
+    csrfToken: req.csrfToken()
   });
 });
 
@@ -31,7 +33,8 @@ router.post('/contact', [
   if (!errors.isEmpty()) {
     return res.render('contact', {
       data: req.body,
-      errors: errors.mapped()
+      errors: errors.mapped(),
+      csrfToken: req.csrfToken()
     });
   }
 
