@@ -13,8 +13,9 @@
             </ul>
             <% } %>
 </div>
-<form method="post" action="/contact?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
+<form method="post" action="/contact" novalidate enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    
     <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for="message">Message</label>
         <textarea class="input" id="message" name="message" rows="4" autofocus><%= data.message %></textarea>
